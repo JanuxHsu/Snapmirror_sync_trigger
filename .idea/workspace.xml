@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b73ebca1-e5fd-40bc-9f5e-80fd7e960164" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/trigger_snapmirror_sync.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/trigger_snapmirror_sync.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../shield_dev/HFF-Automation/bin/hff_volume_move_trigger.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../shield_dev/HFF-Automation/bin/hff_volume_move_trigger.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../shield_dev/HFF-Automation/bin/volume_move_prechecker.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../shield_dev/HFF-Automation/bin/volume_move_prechecker.py" afterDir="false" />
     </list>
