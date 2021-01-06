@@ -1,6 +1,8 @@
 # Snapmirror_sync_trigger
 
 
+This script requires python3.2 or above
+
 Trigger Snapmirror sync using restful api
 Usage:
 ```
