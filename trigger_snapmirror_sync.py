@@ -8,7 +8,7 @@ usage: python3 trigger_snapmirror_sync.py
     parser.add_argument("-p", "--api_password", required=True, help="API Password", dest="api_password")
     parser.add_argument("-o", "--api_port", required=False, help="API Port", default=443, dest="port")
     parser.add_argument("-i", "--uuid", required=True, help="Snapmirror uuid", dest="uuid")
-    parser.add_argument("-m", "--mode", required=True, help="Snapmirror mode", choices=["sync", "async"], dest="mode")
+    parser.add_argument("-m", "--mode", required=True, help="Snapmirror mode", choices=["snapmirrored"], dest="mode")
 """
 import json
 
@@ -93,7 +93,7 @@ class API_Handler(object):
         response = requests.patch(url, headers=self.auth_header, json=data_obj, verify=False)
         res_json = response.json()
 
-        if response.status_code != 200:
+        if response.status_code != 200 and response.status_code != 202:
             raise Exception(res_json)
         return res_json
 
@@ -105,7 +105,7 @@ if __name__ == '__main__':
     parser.add_argument("-p", "--api_password", required=True, help="API Password", dest="api_password")
     parser.add_argument("-o", "--api_port", required=False, help="API Port", default=443, dest="port")
     parser.add_argument("-i", "--uuid", required=True, help="Snapmirror uuid", dest="uuid")
-    parser.add_argument("-m", "--mode", required=True, help="Snapmirror mode", choices=["sync", "async"], dest="mode")
+    parser.add_argument("-m", "--mode", required=True, help="Snapmirror mode", choices=["snapmirrored"], dest="mode")
     args = parser.parse_args()
 
     setup_default_logger()
