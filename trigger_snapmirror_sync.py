@@ -39,7 +39,7 @@ class API_Handler(object):
         self.cluster = ""
         self.api_user = ""
         self.api_password = ""
-        self.mode = "synchronizing"
+        self.mode = "snapmirrored"
         self.logger = logging.getLogger(self.__class__.__name__)
 
     def set_cluster(self, cluster=""):
@@ -54,7 +54,7 @@ class API_Handler(object):
     def set_port(self, port=443):
         self.port = port
 
-    def set_mode(self, mode="synchronizing"):
+    def set_mode(self, mode="snapmirrored"):
         self.mode = mode
 
     def _get_url(self):
