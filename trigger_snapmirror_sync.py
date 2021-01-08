@@ -105,7 +105,7 @@ if __name__ == '__main__':
     parser.add_argument("-p", "--api_password", required=True, help="API Password", dest="api_password")
     parser.add_argument("-o", "--api_port", required=False, help="API Port", default=443, dest="port")
     parser.add_argument("-i", "--uuid", required=True, help="Snapmirror uuid", dest="uuid")
-    parser.add_argument("-m", "--mode", required=True, help="Snapmirror mode", choices=["snapmirrored"], dest="mode")
+    parser.add_argument("-m", "--mode", required=False, help="Snapmirror mode", choices=["snapmirrored"], dest="mode")
     args = parser.parse_args()
 
     setup_default_logger()
