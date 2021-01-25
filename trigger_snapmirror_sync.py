@@ -8,6 +8,7 @@ usage: python3 trigger_snapmirror_sync.py
     parser.add_argument("-p", "--api_password", required=True, help="API Password", dest="api_password")
     parser.add_argument("-o", "--api_port", required=False, help="API Port", default=443, dest="port")
     parser.add_argument("-i", "--uuid", required=True, help="Snapmirror uuid", dest="uuid")
+    parser.add_argument("-m", "--mode", required=True, help="Snapmirror mode", choices=["snapmirrored"], dest="mode")
 """
 import json
 
@@ -38,7 +39,7 @@ class API_Handler(object):
         self.cluster = ""
         self.api_user = ""
         self.api_password = ""
-
+        self.mode = "snapmirrored"
         self.logger = logging.getLogger(self.__class__.__name__)
 
     def set_cluster(self, cluster=""):
@@ -53,8 +54,11 @@ class API_Handler(object):
     def set_port(self, port=443):
         self.port = port
 
+    def set_mode(self, mode="snapmirrored"):
+        self.mode = mode
+
     def _get_url(self):
-        return "https://{}:9999".format(self.cluster)
+        return "https://{}:{}".format(self.cluster, self.port)
 
     def generate_auth_header(self):
         base64string = base64.encodebytes(('%s:%s' % (self.api_user, self.api_password)).encode()).decode().replace('\n', '')
@@ -82,14 +86,14 @@ class API_Handler(object):
 
     def trigger_snapmirror_sync(self, uuid=""):
         data_obj = dict()
-        data_obj['state'] = "synchronizing"
+        data_obj['state'] = self.mode
 
         url = "{}/api/snapmirror/relationships/{}".format(self._get_url(), uuid)
 
         response = requests.patch(url, headers=self.auth_header, json=data_obj, verify=False)
         res_json = response.json()
 
-        if response.status_code != 200:
+        if response.status_code != 200 and response.status_code != 202:
             raise Exception(res_json)
         return res_json
 
@@ -101,6 +105,7 @@ if __name__ == '__main__':
     parser.add_argument("-p", "--api_password", required=True, help="API Password", dest="api_password")
     parser.add_argument("-o", "--api_port", required=False, help="API Port", default=443, dest="port")
     parser.add_argument("-i", "--uuid", required=True, help="Snapmirror uuid", dest="uuid")
+    parser.add_argument("-m", "--mode", required=False, default="snapmirrored", help="Snapmirror mode", choices=["snapmirrored"], dest="mode")
     args = parser.parse_args()
 
     setup_default_logger()
@@ -113,6 +118,7 @@ if __name__ == '__main__':
         api_handler.set_api_user(api_user=args.api_user)
         api_handler.set_api_password(api_password=args.api_password)
         api_handler.set_port(port=args.port)
+        api_handler.set_mode(mode=args.mode)
         api_handler.generate_auth_header()
 
         sm_uuid = args.uuid
